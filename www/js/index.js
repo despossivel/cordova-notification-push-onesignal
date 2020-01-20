@@ -69,4 +69,23 @@ document.addEventListener('deviceready', function () {
   // Ligue o SyncHashedEmail em qualquer lugar do seu aplicativo se você tiver o e-mail do usuário.
   // Isso melhora a eficácia do recurso de agendamento de notificações "Best-Time" da OneSignal.
   // window.plugins.OneSignal.syncHashedEmail(userEmail);
+    
+    
+window.plugins.OneSignal.getIds(function(ids) {
+  var notificationObj = { contents: {en: "message body"},
+                          include_player_ids: [ids.userId]};
+  window.plugins.OneSignal.postNotification(notificationObj,
+    function(successResponse) {
+      console.log("Notification Post Success:", successResponse);
+    },
+    function (failedResponse) {
+      console.log("Notification Post Failed: ", failedResponse);
+      alert("Notification Post Failed:\n" + JSON.stringify(failedResponse));
+    }
+  );
+});
+    
+    
+    
+    
 }, false);
